@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>在git的提交注释里解释&quot;为什么&quot; | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原文链接：https://8thlight.com/blog/dariusz-pasciak/2016/10/31/the-why-a-better-git-commit-message.html
+　　最近在尝试修复一个不明原因突然引起故障的第三方框架集成问题。追查该问题时发现是一个页面的引用框架执行行为不正确引起。
+　　首先使用git blame命令查看引用该框架的代码，确认最后一次修改的时间和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在git的提交注释里解释"为什么"">
+<meta property="og:url" content="https://aquarium.github.io/aq/2017/03/16/the-why-a-better-git-commit-message/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="原文链接：https://8thlight.com/blog/dariusz-pasciak/2016/10/31/the-why-a-better-git-commit-message.html
+　　最近在尝试修复一个不明原因突然引起故障的第三方框架集成问题。追查该问题时发现是一个页面的引用框架执行行为不正确引起。
+　　首先使用git blame命令查看引用该框架的代码，确认最后一次修改的时间和">
+<meta property="og:updated_time" content="2017-03-19T07:47:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在git的提交注释里解释"为什么"">
+<meta name="twitter:description" content="原文链接：https://8thlight.com/blog/dariusz-pasciak/2016/10/31/the-why-a-better-git-commit-message.html
+　　最近在尝试修复一个不明原因突然引起故障的第三方框架集成问题。追查该问题时发现是一个页面的引用框架执行行为不正确引起。
+　　首先使用git blame命令查看引用该框架的代码，确认最后一次修改的时间和">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/aq/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/aq/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/aq/">Home</a>
+        
+          <a class="main-nav-link" href="/aq/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://aquarium.github.io/aq"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-the-why-a-better-git-commit-message" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/aq/2017/03/16/the-why-a-better-git-commit-message/" class="article-date">
+  <time datetime="2017-03-16T08:55:00.000Z" itemprop="datePublished">2017-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      在git的提交注释里解释&quot;为什么&quot;
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>原文链接：</strong><a href="https://8thlight.com/blog/dariusz-pasciak/2016/10/31/the-why-a-better-git-commit-message.html" target="_blank" rel="external">https://8thlight.com/blog/dariusz-pasciak/2016/10/31/the-why-a-better-git-commit-message.html</a></p>
+<p>　　最近在尝试修复一个不明原因突然引起故障的第三方框架集成问题。追查该问题时发现是一个页面的引用框架执行行为不正确引起。</p>
+<p>　　首先使用git blame命令查看引用该框架的代码，确认最后一次修改的时间和差异内容。(git blame命令：显示文件每一行代码最后修改的作者和版本信息。)差异代码很少，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- &lt;iframe src=&quot;https://fake-3rd-party.com/widget?code=12345&quot; /&gt;</div><div class="line">+ &lt;iframe src=&quot;https://fake-3rd-party.com/embed/WXYZ&quot; /&gt;</div></pre></td></tr></table></figure>
+<p>　　代码差异看起来没什么特别，只显示出引起故障发生的框架代码引用源有变化。然后，查看其提交注释，想从中获得更多信息。提交注释如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">作者: Some Guy &lt;some.guy@some.domain&gt;</div><div class="line"></div><div class="line">    changed iframe src</div></pre></td></tr></table></figure>
+<p>　　哇！这注释真的非常有用。感谢Some Guy。</p>
+<p>　　故事没结束，以下开始是我的观点。</p>
+<p>　　当我们在提交代码的时候，请稍停一下想想写的提交注释是否提供了有用的信息，是否还可以补充提供哪怕多一点点的信息。例如，一个链接，或任何形式的说明。</p>
+<p>　　如果真的完全不知道在提交注释里写什么是有用的，那就尝试自问：“为什么我要做这个修改？”回答这个问题起码可以回想起做这个修改的动机，这动机本身就是非常有用的信息。至少，这可以是更进一步深入排查问题的起点。</p>
+<p>　　请各位都在提交注释里解释“为什么”吧。</p>
+<p><strong>原文：</strong></p>
+<p>I was recently tasked with fixing a third-party integration issue that started occurring suddenly and with no apparent reason. The source of the problem was an iframe on a page that was misbehaving.</p>
+<p>My first hunch was to git blame the line of code that had the iframe to see when the last changed occurred and what that change was. The diff was very simple:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- &lt;iframe src=<span class="string">"https://fake-3rd-party.com/widget?code=12345"</span> /&gt;</div><div class="line">+ &lt;iframe src=<span class="string">"https://fake-3rd-party.com/embed/WXYZ"</span> /&gt;</div></pre></td></tr></table></figure>
+<p>Nothing cryptic there. It hinted that something may have changed with the integration and that was causing the issue. I went to look at the commit message to get some more info, and that read as follows:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Author: Some Guy &lt;some.guy@some.domain&gt;</div><div class="line"></div><div class="line">    changed iframe src</div></pre></td></tr></table></figure>
+<p>Wow. That was very helpful. Thanks, Some Guy.</p>
+<p>The story doesn’t end here, but my point begins here.</p>
+<p>When we’re writing a message for our next commit, let’s take a moment to consider whether the message is at all informative. Is there anything else that we could include with the message to provide a little more context into what’s going on? A link? Anything?</p>
+<p>If we’re really stumped and just can’t think of how to make the commit message useful, let’s start by asking ourselves, “Why am I making this change?” Answering that question will at least reveal the motivation for the change, which, in and of itself, can be pretty informative. At minimum, it can serve as a starting point for further investigation.</p>
+<p>Let’s incorporate that “why” into our commit message and move on.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://aquarium.github.io/aq/aq/2017/03/16/the-why-a-better-git-commit-message/" data-id="cj0geke3v00005tqgx8mnufw2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/aq/archives/2017/03/">March 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/aq/2017/03/16/the-why-a-better-git-commit-message/">在git的提交注释里解释&quot;为什么&quot;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 AQ<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/aq/" class="mobile-nav-link">Home</a>
+  
+    <a href="/aq/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/aq/fancybox/jquery.fancybox.css">
+  <script src="/aq/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/aq/js/script.js"></script>
+
+  </div>
+</body>
+</html>
